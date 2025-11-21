@@ -1,5 +1,3 @@
-# Файл docker-compose.yml
-
 # Перечень volume
 volumes:
   pg_data:
@@ -28,3 +26,11 @@ services:
   frontend:
     env_file: .env
     build: ./frontend/
+  # Добавляем новый контейнер: gateway
+  gateway:
+    build: ./gateway/
+    depends_on:
+      - backend
+    ports:
+      - "8000:80"
+    restart: always
